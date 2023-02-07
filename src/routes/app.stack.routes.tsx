@@ -7,34 +7,29 @@ import { Home } from '../screens/Home';
 import { CarDetails } from '../screens/CarDetails';
 import { Scheduling } from '../screens/Scheduling';
 import { SchedulingDetails } from '../screens/SchedulingDetails';
-import { SchedulingComplete } from '../screens/SchedulingComplete';
+import { Confirmation } from '../screens/Confirmation';
 import { CarDTO } from '../dtos/CarDTO';
 import { MyCars } from '../screens/MyCars';
-import { Splash } from '../screens/Splash';
 
-export interface RouteList {
-	Splash: undefined;
+export interface AppStackRouteList {
 	Home: undefined;
 	CarDetails: {car: CarDTO} | undefined;
 	Scheduling: {car: CarDTO} | undefined;
 	SchedulingDetails: {car: CarDTO, dates: string[]} | undefined;
-	SchedulingComplete: undefined;
+	Confirmation: {
+		title: string; 
+		message: string; 
+		nextScreenRoute: any;
+	};
 	MyCars: undefined;
 }
 
-export function StackRoutes(){
+export function AppStackRoutes(){
   return(
-    <Navigator screenOptions={{headerShown: false}} initialRouteName="Splash">
-			<Screen
-				name='Splash'
-				component={Splash} 
-			/>
+    <Navigator screenOptions={{headerShown: false}} initialRouteName="Home">
 			<Screen
 				name='Home'
 				component={Home} 
-				options={{
-					gestureEnabled: false
-				}}
 			/>
 			<Screen
 				name='CarDetails'
@@ -49,8 +44,8 @@ export function StackRoutes(){
 				component={SchedulingDetails} 
 			/>
 			<Screen
-				name='SchedulingComplete'
-				component={SchedulingComplete} 
+				name='Confirmation'
+				component={Confirmation} 
 			/>
 			<Screen
 				name='MyCars'

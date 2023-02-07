@@ -124,8 +124,8 @@ export const CarDetails = () => {
           </Description>
 
           <Rent>
-            <Period>{car.rent.period}</Period>
-            <Price>{`R$ ${car.rent.price}`}</Price>
+            <Period>{car.period}</Period>
+            <Price>{`R$ ${car.price}`}</Price>
           </Rent>
         </Details>
 
@@ -153,7 +153,7 @@ export const CarDetails = () => {
       </Animated.ScrollView>
 
       <Footer>
-        <Button title='Escolher período do aluguel' onPress={handleConfirmRental} />
+        <Button title='Escolher período do aluguel' enabled onPress={handleConfirmRental} />
       </Footer>
     </Container>
   );

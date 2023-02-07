@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { StatusBar, useWindowDimensions } from 'react-native';
 
 import LogoSvg from '../../assets/logo_background_gray.svg';
@@ -15,15 +15,23 @@ import {
   Footer
 } from './styles';
 
-export const SchedulingComplete = () => {
+interface Params {
+	title: string;
+	message: string;
+	nextScreenRoute: any;
+}
+
+export const Confirmation = () => {
   const {width} = useWindowDimensions();
 	const navigation = useNavigation();
+	const route = useRoute();
+
+	const { title, message, nextScreenRoute } = route.params as Params;
 
 	function handleConfirm(){
-		navigation.navigate('Home');
+		navigation.navigate(nextScreenRoute);
 	}
 
-	
   return(
     <Container>
       <StatusBar 
@@ -35,12 +43,10 @@ export const SchedulingComplete = () => {
 
       <Content>
         <DoneSvg width={80} height={80} />
-        <Title>Carro alugado!</Title>
+        <Title>{title}</Title>
 
         <Message>
-          Agro voçê só precisa ir {'\n'}
-          até a concessionária da RENTIX {'\n'}
-          pegar o seu automóvel.
+          {message}
         </Message>
       </Content>
 

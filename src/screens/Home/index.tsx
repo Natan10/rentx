@@ -1,25 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { StatusBar, StyleSheet, BackHandler } from 'react-native';
+import { StatusBar } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import {RFValue} from 'react-native-responsive-fontsize';
-import { Ionicons } from '@expo/vector-icons';
-import { useTheme } from 'styled-components';
-import { RectButton, PanGestureHandler } from 'react-native-gesture-handler';
-import Animated, {
-	useSharedValue,
-	useAnimatedStyle,
-	useAnimatedGestureHandler,
-	withSpring
-} from 'react-native-reanimated';
-
-const ButtonAnimated = Animated.createAnimatedComponent(RectButton);
+import { RFValue } from 'react-native-responsive-fontsize';
 
 import api from '../../services/api';
 import { CarDTO } from '../../dtos/CarDTO';
-
 import { Car } from '../../components/Car';
 import { LoadAnimation } from '../../components/LoadAnimation';
-
 import { 
 	Container,
 	Header, 
@@ -36,8 +23,27 @@ export const Home = () => {
 	const [cars, setCars] = useState<CarDTO[]>([]);
 	const [loading, setLoading] = useState(true);
 
-	const theme = useTheme();
+	function handleCarDetails(car: CarDTO){
+		navigation.navigate('CarDetails', {
+			car
+		});
+	}
 
+	useEffect(() => {
+		async function fetchCars(){
+			try {
+				const {data} = await api.get('/cars');
+				setCars(data);
+			} catch (error) {
+				console.log(error);
+			}finally{
+				setLoading(false);
+			}
+		}
+		fetchCars();
+	},[]);
+
+	/*
 	const positionY = useSharedValue(0);
 	const positionX = useSharedValue(0);
 	const myCarsButtonStyle = useAnimatedStyle(() => {
@@ -63,36 +69,17 @@ export const Home = () => {
 		}
 	}); 
 
-	function handleCarDetails(car: CarDTO){
-		navigation.navigate('CarDetails', {
-			car
-		});
-	}
-
 	function handleOpenMyCars(){
 		navigation.navigate('MyCars');
 	}
 
-	useEffect(() => {
-		async function fetchCars(){
-			try {
-				const {data} = await api.get('/cars');
-				setCars(data);
-			} catch (error) {
-				console.log(error);
-			}finally{
-				setLoading(false);
-			}
-		}
-
-		fetchCars();
-	},[]);
-
+	Acao de voltar ao scrollar para a esquerda
 	useEffect(() => {
 		BackHandler.addEventListener('hardwareBackPress', () => {
 			return true;
 		})
 	},[]);
+	*/
 	
   return (
     <Container>
@@ -125,7 +112,7 @@ export const Home = () => {
 				/>
 			)}
 
-			<PanGestureHandler onGestureEvent={onGestureEvent}>
+			{/* <PanGestureHandler onGestureEvent={onGestureEvent}>
 				<Animated.View
 					style={[
 						myCarsButtonStyle,
@@ -147,17 +134,17 @@ export const Home = () => {
 						/>
 					</ButtonAnimated>
 				</Animated.View>
-			</PanGestureHandler>
+			</PanGestureHandler> */}
     </Container>
   )
 }
 
-const style = StyleSheet.create({
-	button: {
-		width: 60,
-		height: 60,
-		borderRadius: 30,
-		justifyContent: 'center',
-		alignItems: 'center'
-	}
-})
+// const style = StyleSheet.create({
+// 	button: {
+// 		width: 60,
+// 		height: 60,
+// 		borderRadius: 30,
+// 		justifyContent: 'center',
+// 		alignItems: 'center'
+// 	}
+// })
