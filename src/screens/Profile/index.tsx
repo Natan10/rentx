@@ -115,6 +115,7 @@ export const Profile = () => {
 			if(err instanceof yup.ValidationError){
 				return Alert.alert('Opa', err.message);
 			}
+			console.log(err)
 			return Alert.alert('Não foi possível atualizar o perfil')
 		}
 	}

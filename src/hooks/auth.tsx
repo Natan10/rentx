@@ -50,8 +50,10 @@ function AuthProvider({children}: AuthProviderProps){
 			});
 	
 			const {user, token} = response.data;
-	
-			api.defaults.headers.authorization = `Bearer ${token}`;
+		
+			api.defaults.headers.common = {
+				Authorization: `Bearer ${token}`
+			}
 	
 			const userCollection = database.get<ModelUser>('users');
 			await database.write(async () => {
@@ -93,7 +95,6 @@ function AuthProvider({children}: AuthProviderProps){
 		try{
 			const userCollection = database.get<ModelUser>('users');
 			await database.write(async () => {
-				
 				const userSelected = await userCollection.find(user.id);
 				await userSelected.update((userData) => {
 					userData.name = user.name
@@ -115,7 +116,10 @@ function AuthProvider({children}: AuthProviderProps){
 			const response = await userCollection.query().fetch();
 			if(response.length > 0){
 				const userData = response[0]._raw as unknown as User;
-				api.defaults.headers.authorization = `Bearer ${userData.token}`;
+				api.defaults.headers.common = {
+					Authorization: `Bearer ${userData.token}`
+				}
+			
 				setData(userData);
 				setLoading(false)
 			}
