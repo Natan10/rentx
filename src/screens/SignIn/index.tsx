@@ -41,13 +41,12 @@ export const SignIn = () => {
 	async function handleSignIn() {
 		try {
 			await schema.validate({email, password});
-			Alert.alert('Tudo certo!');
-
 			await signIn({email,password})
 		} catch (error) {
 			if(error instanceof Yup.ValidationError){
 				Alert.alert('Opa', error.message);
 			} else {
+				console.log(error)
 				Alert.alert(
 					'Erro na autenticação',
 					'Ocorreu um erro ao fazer login, verifique as credenciais'

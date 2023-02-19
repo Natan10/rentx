@@ -6,9 +6,12 @@
     "assetBundlePatterns": [
       "**/*"
     ],
-		"splash": {
-			"image": "./assets/splash.png",
-			"backgroundColor": "#1B1B1F"
-		}
+    "splash": {
+      "image": "./assets/splash.png",
+      "backgroundColor": "#1B1B1F"
+    },
+    "ios": {
+      "bundleIdentifier": "org.name.rentx"
+    }
   }
 }

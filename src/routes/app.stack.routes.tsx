@@ -18,7 +18,7 @@ export interface AppStackRouteList {
 	SchedulingDetails: {car: CarDTO, dates: string[]} | undefined;
 	Confirmation: {
 		title: string; 
-		message: string; 
+		message: string;
 		nextScreenRoute: any;
 	};
 	MyCars: undefined;

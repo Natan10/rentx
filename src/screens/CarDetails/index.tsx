@@ -76,6 +76,8 @@ export const CarDetails = () => {
 		navigation.goBack()
 	}
 
+	console.log({car})
+
   return(
     <Container>
 			<StatusBar 
@@ -140,14 +142,6 @@ export const CarDetails = () => {
         </Accessories>
 
         <About>
-					{car.about}
-					{car.about}
-					{car.about}
-					{car.about}
-					{car.about}
-					{car.about}
-					{car.about}
-					{car.about}
 					{car.about}
         </About>
       </Animated.ScrollView>
