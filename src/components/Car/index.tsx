@@ -1,7 +1,9 @@
 import React from 'react';
+import { useNetInfo } from '@react-native-community/netinfo';
 import { RectButtonProps } from 'react-native-gesture-handler';
 
 import {CarDTO} from '../../dtos/CarDTO';
+import {Car as ModelCar} from '../../database/model/Car'
 
 import { 
   Container,
@@ -19,10 +21,11 @@ import {
 import { getAccessoryIcon } from '../../utils/getAccessoryIcon';
 
 interface Props extends RectButtonProps {
-  data: CarDTO;
+  data: ModelCar;
 }
 
 export const Car = ({ data, ...rest }: Props) => {
+	const netInfo = useNetInfo();
 	const MotorIcon = getAccessoryIcon(data.fuel_type);
 
 	return (
@@ -34,7 +37,7 @@ export const Car = ({ data, ...rest }: Props) => {
         <About>
           <Rent>
             <Period>{data.period}</Period>
-            <Price>{`RS ${data.price}`}</Price>
+            <Price>{`RS ${netInfo.isConnected === true ? data.price : '...'}`}</Price>
           </Rent>
 
           <Type>

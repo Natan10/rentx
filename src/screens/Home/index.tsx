@@ -41,11 +41,7 @@ export const Home = () => {
 			pullChanges: async ({lastPulledAt}) => {
 				const {data} = await api
 				.get(`cars/sync/pull?lastPulledVersion=${lastPulledAt || 0}`);
-
 				const {changes, latestVersion} = data;
-				console.log('### SYNC ###')
-				console.log(changes)
-
 				return {
 					changes,
 					timestamp: latestVersion
@@ -53,8 +49,8 @@ export const Home = () => {
 			},
 			pushChanges: async ({changes}) => {
 				const user = changes.users;
-				await api.post('/users/sync/', user);
-			},sendCreatedAsUpdated: true
+				await api.post('/users/sync', user);
+			}	
 		})
 	}
 

@@ -15,6 +15,7 @@ export const Header = styled.View`
   position: absolute;
   margin-top: ${getStatusBarHeight() + 18}px;
   margin-left: 24px;
+	z-index: 10;
 `;
 
 export const CarImages = styled.View`
@@ -90,4 +91,11 @@ export const Footer = styled.View`
   padding-bottom: ${getBottomSpace() + 24}px;
 
   background-color: ${({theme}) => theme.colors.background_secondary};
+`;
+
+export const OfflineInfo = styled.Text`
+	font-family: ${({theme}) => theme.fonts.primary_400};
+  color: ${({theme}) => theme.colors.main};
+  font-size: ${RFValue(10)}px;
+	text-align: center;
 `;

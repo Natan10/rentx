@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { useTheme } from 'styled-components';
 import { Feather } from '@expo/vector-icons';
+import { useNetInfo } from '@react-native-community/netinfo';
 import * as ImagePicker from 'expo-image-picker';
 import * as yup from 'yup';
 
@@ -33,6 +34,7 @@ import {
 export const Profile = () => {
 	const theme = useTheme();
 	const navigation = useNavigation();
+	const netInfo = useNetInfo();
 	const { user, signOut, updatedUser } = useAuth();
 
 	const [option, setOption] = useState<'dataEdit' | 'passwordEdit'>('dataEdit');
@@ -63,7 +65,11 @@ export const Profile = () => {
 	}
 
 	const handleOptionChange = (optionSelected: 'dataEdit' | 'passwordEdit') => {
-		setOption(optionSelected);
+		if(netInfo.isConnected === false && optionSelected === 'passwordEdit'){
+			Alert.alert('Você está offline','Para mudar a senha, conecte-se a Internet')
+		}else{
+			setOption(optionSelected);
+		}
 	}
 
 	const handleSelectAvatar = async () => {
